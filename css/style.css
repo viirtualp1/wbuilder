@@ -1,0 +1,11 @@
+html, body, #app { height: 100%; }
+
+.menu-constructor { 
+    border-right: 1px solid silver;
+    min-height: 100%;
+    float: left;
+    width: 350px; 
+    position: relative;
+}
+
+.menu-constructor > div { margin: 1rem; }
