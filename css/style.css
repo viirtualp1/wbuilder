@@ -8,4 +8,8 @@ html, body, #app { height: 100%; }
     position: relative;
 }
 
+.canvas { float: left; }
+
 .menu-constructor > div { margin: 1rem; }
+
+.buttonEdit { margin-left: 1rem; }

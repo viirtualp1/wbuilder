@@ -11,32 +11,112 @@
 </head>
 <body>
     <div id="app">
-        <div class="menu-constructor">
+        <div class="col menu-constructor">
             <div class="panel-manage-text">
-                <h4>Текст</h4>
+                <h4 class="mb-3">Текст</h4>
                 
                 <div class="select-text">
                     <div class="add-text mb-3">
-                        <p id="addText">Добавить текст</p>
+                        <p class="fw-bold" id="addText">Добавить текст</p>
 
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Напишите текст" v-model="textValue">
-                            <button class="btn btn-success" @click="addText"><i class="fas fa-plus"></i></button>   
+                            <input type="text" class="form-control" placeholder="Напишите текст" v-model="elemValue">
+                            <button class="btn btn-success" @click="addElem('p')"><i class="fas fa-plus"></i></button>   
                         </div>
                     </div>
 
                     <div class="style-text">
-                        <p id="fontSize">Размер шрифта</p>
+                        <div class="fontSize-text mb-3">
+                            <p class="fw-bold" id="fontSize">Размер шрифта</p>
 
-                        <button class="btn btn-outline-success" @click="selectStyleText(true)"><i class="fas fa-plus"></i></button>
-                        <button class="btn btn-outline-danger" @click="selectStyleText(false)"><i class="fas fa-minus"></i></button>
-                        <button class="btn btn-outline-primary" @click="selectStyleText('reset')"><i class="fas fa-arrow-rotate-left"></i></button>
+                            <button class="btn btn-outline-success" @click="selectFontSize('p', true)"><i class="fas fa-plus"></i></button>
+                            <button class="btn btn-outline-danger" @click="selectFontSize('p', false)"><i class="fas fa-minus"></i></button>
+                            <button class="btn btn-outline-primary" @click="selectFontSize('p', 'reset')"><i class="fas fa-arrow-rotate-left"></i></button>
+                        </div>
+
+                        <div class="margin-text mb-3">
+                            <p class="fw-bold" id="fontSize">Отступ</p>
+
+                            <select class="form-select mb-2" v-model="posElem">
+                                <option value="left">Слева</option>
+                                <option value="right">Справа</option>
+                                <option value="top">Сверху</option>
+                                <option value="bottom">Снизу</option>
+                            </select>
+
+                            <button class="btn btn-outline-success" @click="selectMargin('p', true)"><i class="fas fa-plus"></i></button>
+                            <button class="btn btn-outline-danger" @click="selectMargin('p', false)"><i class="fas fa-minus"></i></button>
+                            <button class="btn btn-outline-primary" @click="selectMargin('p', 'reset')"><i class="fas fa-arrow-rotate-left"></i></button>
+                        </div>
+
+                        <div class="color-text">
+                            <p class="fw-bold" id="fontSize">Цвет</p>
+
+                            <input type="color" @change="selectColor('p')" v-model="colorText">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <hr>
+
+            <div class="panel-manage-button">
+                <h4 class="mb-3">Кнопка</h4>
+                
+                <div class="select-button">
+                    <div class="add-button mb-3">
+                        <p class="fw-bold" id="addText">Добавить текст</p>
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Напишите текст" v-model="elemValue">
+                            <button class="btn btn-success" @click="addElem('button')"><i class="fas fa-plus"></i></button>   
+                        </div>
+                    </div>
+
+                    <div class="style-button">
+                        <div class="fontSize-button mb-3">
+                            <p class="fw-bold" id="fontSize">Размер шрифта</p>
+
+                            <button class="btn btn-outline-success" @click="selectFontSize('button', true)"><i class="fas fa-plus"></i></button>
+                            <button class="btn btn-outline-danger" @click="selectFontSize('button', false)"><i class="fas fa-minus"></i></button>
+                            <button class="btn btn-outline-primary" @click="selectFontSize('button', 'reset')"><i class="fas fa-arrow-rotate-left"></i></button>
+                        </div>
+
+                        <div class="margin-button mb-3">
+                            <p class="fw-bold" id="fontSize">Отступ</p>
+
+                            <select class="form-select mb-2" v-model="posElem">
+                                <option value="left">Слева</option>
+                                <option value="right">Справа</option>
+                                <option value="top">Сверху</option>
+                                <option value="bottom">Снизу</option>
+                            </select>
+
+                            <button class="btn btn-outline-success" @click="selectMargin('button', true)"><i class="fas fa-plus"></i></button>
+                            <button class="btn btn-outline-danger" @click="selectMargin('button', false)"><i class="fas fa-minus"></i></button>
+                            <button class="btn btn-outline-primary" @click="selectMargin('button', 'reset')"><i class="fas fa-arrow-rotate-left"></i></button>
+                        </div>
+
+                        <div class="color-button mb-3">
+                            <p class="fw-bold" id="fontSize">Цвет</p>
+
+                            <input type="color" @change="selectColor('button')" v-model="colorText">
+                        </div>
+
+                        <div class="style-template-button">
+                            <p class="fw-bold" id="templateStyle">Шаблон стиля</p>
+
+                            <button class="btn btn-primary" @click="selectTemplateStyle('primary')">1</button>
+                            <button class="btn btn-warning" @click="selectTemplateStyle('warning')">2</button>
+                            <button class="btn btn-danger" @click="selectTemplateStyle('danger')">3</button>
+                            <button class="btn btn-success" @click="selectTemplateStyle('success')">4</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="canvas"></div>
+        <div class="col canvas"></div>
     </div>
     
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
