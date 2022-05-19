@@ -4,6 +4,7 @@ const app = new Vue({
     data: {
         elemValue: '',
         createdElements: [],
+        lcCreatedElements: [],
 
         posElem: 'left',
         colorText: '',
@@ -16,8 +17,8 @@ const app = new Vue({
         selectFontSize: function (type, value) {
             const elem = document.getElementById(`${type}-${this.currentIndexEditStyleElem}`);
 
-            elem.style.fontSize = `${value ? this.createdElements[this.currentIndexEditStyleElem].fontSize += 5 : this.createdElements[this.currentIndexEditStyleElem].fontSize -= 5}px`;
-            if (value == 'reset') elem.style.fontSize = `${this.createdElements[this.currentIndexEditStyleElem].fontSize = 20}px`;
+            elem.style.fontSize = `${value ? this.createdElements[this.currentIndexEditStyleElem].styles.fontSize += 5 : this.createdElements[this.currentIndexEditStyleElem].styles.fontSize -= 5}px`;
+            if (value == 'reset') elem.style.fontSize = `${this.createdElements[this.currentIndexEditStyleElem].styles.fontSize = 20}px`;
         },
 
         selectMargin: function (type, value) {
@@ -28,10 +29,10 @@ const app = new Vue({
                 elem.style.marginBottom = '1rem';
             } else {
                 switch (this.posElem) {
-                    case 'left': elem.style.marginLeft = `${value ? this.createdElements[this.currentIndexEditStyleElem].margin.left += 10 : this.createdElements[this.currentIndexEditStyleElem].margin.left -= 5}px`; break;
-                    case 'right': elem.style.marginRight = `${value ? this.createdElements[this.currentIndexEditStyleElem].margin.right += 10 : this.createdElements[this.currentIndexEditStyleElem].margin.right -= 5}px`; break;
-                    case 'top': elem.style.marginTop = `${value ? this.createdElements[this.currentIndexEditStyleElem].margin.top += 10 : this.createdElements[this.currentIndexEditStyleElem].margin.top -= 5}px`; break;
-                    case 'bottom': elem.style.marginBottom = `${value ? this.createdElements[this.currentIndexEditStyleElem].margin.bottom += 10 : this.createdElements[this.currentIndexEditStyleElem].margin.bottom -= 5}px`; break;
+                    case 'left': elem.style.marginLeft = `${value ? this.createdElements[this.currentIndexEditStyleElem].styles.margin.left += 10 : this.createdElements[this.currentIndexEditStyleElem].styles.margin.left -= 5}px`; break;
+                    case 'right': elem.style.marginRight = `${value ? this.createdElements[this.currentIndexEditStyleElem].styles.margin.right += 10 : this.createdElements[this.currentIndexEditStyleElem].styles.margin.right -= 5}px`; break;
+                    case 'top': elem.style.marginTop = `${value ? this.createdElements[this.currentIndexEditStyleElem].styles.margin.top += 10 : this.createdElements[this.currentIndexEditStyleElem].styles.margin.top -= 5}px`; break;
+                    case 'bottom': elem.style.marginBottom = `${value ? this.createdElements[this.currentIndexEditStyleElem].styles.margin.bottom += 10 : this.createdElements[this.currentIndexEditStyleElem].styles.margin.bottom -= 5}px`; break;
                 }
             }
         },
@@ -46,6 +47,7 @@ const app = new Vue({
             const elem = document.getElementById(`button-${this.currentIndexEditStyleElem}`);
 
             elem.className = `btn btn-${typeStyle}`;
+            this.createdElements[this.currentIndexEditStyleElem].class = `btn btn-${typeStyle}`;
         },
 
         addElem: function (type) {
@@ -64,14 +66,19 @@ const app = new Vue({
             elem.style.display = "inline-block";
 
             this.createdElements.push({
+                elemType: type,
                 elemValue: this.elemValue,
-                fontSize: 20,
-                color: '#000',
-                margin: {
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
+                class: '',
+                styleText: '',
+                styles: {
+                    fontSize: 20,
+                    color: '#000',
+                    margin: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                    }
                 }
             });
 
@@ -90,7 +97,24 @@ const app = new Vue({
             canvas.appendChild(div);
 
             this.currentIndexElem += 1;
+        },
+
+        createPage: function (update) {
+            localStorage.setItem("elements", JSON.stringify(this.createdElements));
+            location.href = "createPage.html";
         }
     }
 })
 
+window.onload = () => {
+    Swal.fire({
+        title: 'Вы хотите создать новый сайт или обновить существующий?',
+
+        confirmButtonText: 'Создать новый',
+        denyButtonText: 'Обновить существующий',
+        showDenyButton: true,
+    }).then((result) => {
+        if (result.isConfirmed > result.isDenied) localStorage.removeItem("elements")
+        else if (localStorage.getItem("elements") != null) app.createdElements = JSON.parse(localStorage.getItem("elements"));
+    });
+}

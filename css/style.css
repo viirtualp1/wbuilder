@@ -13,3 +13,5 @@ html, body, #app { height: 100%; }
 .menu-constructor > div { margin: 1rem; }
 
 .buttonEdit { margin-left: 1rem; }
+
+#create-page-btn {  margin: 0 0 1rem 1rem; }

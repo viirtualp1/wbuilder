@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="canvas"></div>
+
+    <script>
+        const elements = JSON.parse(localStorage.getItem("elements"));
+        const canvas = document.getElementById("canvas");
+
+        elements.forEach((elem) => {
+
+            let createElem = document.createElement(elem.elemType);
+            createElem.innerHTML = elem.elemValue;
+
+            createElem.style.fontSize = `${elem.styles.fontSize}px`;
+            createElem.style.color = `${elem.styles.color}`;
+            createElem.style.margin = `
+                ${elem.styles.margin.top}px
+                ${elem.styles.margin.right}px
+                ${elem.styles.margin.bottom}px
+                ${elem.styles.margin.left}px
+            `;
+
+            canvas.appendChild(createElem);
+            
+        });
+    </script>
+</body>
+</html>
