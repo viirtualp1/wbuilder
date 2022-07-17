@@ -99,7 +99,7 @@ const app = new Vue({
             this.currentIndexElem += 1;
         },
 
-        createPage: function (update) {
+        createPage: function () {
             localStorage.setItem("elements", JSON.stringify(this.createdElements));
             location.href = "createPage.html";
         }
